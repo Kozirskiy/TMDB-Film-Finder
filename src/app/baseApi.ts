@@ -1,25 +1,23 @@
-import {
-  type BaseQueryFn,
-  createApi,
-  type FetchArgs,
-  fetchBaseQuery,
-  type FetchBaseQueryError,
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import type {ZodType} from 'zod';
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_TMDB_BASE_URL,
   prepareHeaders: (headers) => {
-    headers.set(
-      'Authorization',
-      `Bearer ${import.meta.env.VITE_TMDB_API_TOKEN}`
-    );
+    headers.set('Authorization', `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`);
     return headers;
   },
 });
 
 type ZodExtraOptions = {dataSchema?: ZodType};
 
+// Every endpoint passes its zod schema via extraOptions; an invalid server
+// payload is surfaced as a query error instead of leaking bad data into the UI.
 export const baseQueryWithZod: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -28,10 +26,8 @@ export const baseQueryWithZod: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const result = await rawBaseQuery(args, api, extraOptions);
   const schema = extraOptions?.dataSchema;
-
   if (result.data !== undefined && schema) {
     const parsed = schema.safeParse(result.data);
-
     if (!parsed.success) {
       const details = parsed.error.issues
         .slice(0, 3)
