@@ -1,0 +1,46 @@
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.poster {
+    aspect-ratio: 2 / 3;
+}
+
+.info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.line {
+    height: 14px;
+    border-radius: 6px;
+    width: 90%;
+}
+
+.lineShort {
+    height: 12px;
+    border-radius: 6px;
+    width: 40%;
+}
+
+.shimmer {
+    background: linear-gradient(
+            90deg,
+            var(--skeleton-a) 25%,
+            var(--skeleton-b) 50%,
+            var(--skeleton-a) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: -200% 0;
+    }
+}
