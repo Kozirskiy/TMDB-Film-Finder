@@ -1,0 +1,43 @@
+.footer {
+    flex-shrink: 0;
+    border-top: 1px solid var(--border);
+    background: var(--bg-card);
+}
+
+.inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.copy {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.note {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.socials {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+}
+
+.socials a {
+    color: var(--text-muted);
+    transition: color 0.15s;
+}
+
+.socials a:hover {
+    color: var(--accent);
+}
